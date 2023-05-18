@@ -18,15 +18,74 @@
                 <p><em>This project is highly experimental and brittle. Play with caution.</em></p>
             </blockquote>
         </div>
-        <form>
-            <fieldset>
-                <label for="promptField">Prompt</label>
-                <textarea id="promptTextArea" maxlength="50"
-                    placeholder="Example: A red button that alerts 'Hello World!'"></textarea>
-                <input class="button-primary" type="submit" value="prompt">
-            </fieldset>
-        </form>
+        <label for="promptField">Prompt</label>
+        <textarea id="promptTextArea" maxlength="50"
+            placeholder="Example: A red button that alerts 'Hello World!'"></textarea>
+        <span>
+            <input id="promptButton" class="button-primary" type="submit" value="prompt"
+                onclick="onPromptClickHandler()">
+            <div id="loaderElement"></div>
+        </span>
+        <div id="portal"></div>
     </div>
+    <script>
+        // handle click event of "Prompt" button
+        function onPromptClickHandler(evt) {
+            const prompt = document.querySelector('#promptTextArea').value;
+
+            if (prompt) {
+                togglePromptButton();
+                showLoader();
+                const url = '/prompt';
+                const data = {
+                    text: prompt
+                };
+
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+
+                fetch(url, options)
+                    .then(response => response.json())
+                    .then(data => {
+                        const { payload } = data;
+                        document.querySelector('#portal').innerHTML = payload;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    }).finally(() => {
+                        togglePromptButton();
+                        hideLoader();
+                    });
+            }
+
+        }
+
+        // Add the "loader" element to the HTML body
+        function showLoader() {
+            var loader = document.querySelector('#loaderElement');
+            loader.classList.add('loader');
+        }
+
+        // Remove the "loader" element from the HTML body
+        function hideLoader() {
+            var loader = document.querySelector('.loader');
+            if (loader) {
+                loader.parentNode.removeChild(loader);
+            }
+        }
+
+        // toggle prompt button
+        function togglePromptButton() {
+            let button = document.querySelector('#promptButton');
+            button = !button.disabled;
+        }
+
+    </script>
 </body>
 
 </html>

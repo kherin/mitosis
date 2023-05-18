@@ -6,9 +6,6 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-// Set the view engine to EJS
-app.set("view engine", "ejs");
-
 // Configure body-parser middleware
 app.use(bodyParser.json()); // Parse JSON bodies
 
@@ -35,7 +32,7 @@ app.post("/prompt", async (req, res) => {
         messages: [
           {
             role: "user",
-            content: text,
+            content: `Generate only the HTML code for ${text}. Do not explain the code.`,
           },
         ],
       },
@@ -52,7 +49,7 @@ app.post("/prompt", async (req, res) => {
       message: { content },
     } = firstChoice;
 
-    res.status(200).send(content);
+    res.status(200).send({ payload: content });
   } catch (err) {
     console.error("Error: ", err);
     res.status(500).send("Internal Server Error!");
