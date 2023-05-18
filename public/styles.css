@@ -1,0 +1,16 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.center-top {
+  text-align: center;
+  margin-top: 10vh;
+}
+
+.project-warning {
+  margin: 2vh 00 2vh;
+}
