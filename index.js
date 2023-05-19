@@ -21,7 +21,7 @@ app.get("/", (_, res) => {
 app.post("/prompt", async (req, res) => {
   try {
     const { text } = req.body;
-    if (text && text.length > 50) {
+    if (text && text.length > 100) {
       res.status(400).send("Maximum prompt length has been exceeded!");
     }
     const { data: reply } = await axios.post(
