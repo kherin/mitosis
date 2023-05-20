@@ -73,9 +73,9 @@
 
         // Remove the "loader" element from the HTML body
         function hideLoader() {
-            var loader = document.querySelector('.loader');
+            var loader = document.querySelector('#loaderElement');
             if (loader) {
-                loader.parentNode.removeChild(loader);
+                loader.classList.remove('loader');
             }
         }
 
