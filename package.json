@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "highly experimental project about a website which changes based on user prompts",
   "main": "index.js",
+  "engines": {
+    "node": "14.19.3"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
